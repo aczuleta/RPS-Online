@@ -1,0 +1,17 @@
+$component : ".shell";
+
+#{$component} {
+    &__main-btn{
+        border-radius: 15px;
+        color: white;
+        margin-bottom: 20px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    &__title{
+        font-size: 48px;
+        color: white;
+        //text-shadow: 1px 1px rgb(17, 17, 17, 0.75);
+    }
+}

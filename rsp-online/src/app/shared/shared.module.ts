@@ -1,17 +1,22 @@
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatFormFieldModule, MatInputModule, MatIconModule, MatProgressSpinnerModule, MatButtonModule} from '@angular/material'
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-        BrowserAnimationsModule,
         MatFormFieldModule, MatInputModule, MatIconModule, 
-        MatProgressSpinnerModule, MatButtonModule
+        MatProgressSpinnerModule, MatButtonModule, MatCardModule,
+        FormsModule
   ],
   exports: [
-        BrowserAnimationsModule,
         MatFormFieldModule, MatInputModule, MatIconModule, 
-        MatProgressSpinnerModule, MatButtonModule
+        MatProgressSpinnerModule, MatButtonModule,  MatCardModule,
+        FormsModule
   ]
 })
 export class SharedModule { }

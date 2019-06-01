@@ -1,0 +1,10 @@
+$component : ".match-maker";
+
+#{$component} {
+    &__section{
+        height: 100vh;
+    }
+    &__row{
+        height: inherit;
+    }
+}

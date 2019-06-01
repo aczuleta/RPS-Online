@@ -1,0 +1,40 @@
+<section class="match-maker__section">
+    <div class="row match-maker__row middle-xs">
+        <div class="col-xs-12 center-xs">
+            <h2 class="title-color"><b>Enter Player's Names</b></h2>
+        </div>
+        <div class="col-lg-6 col-lg-offset-3">
+            <mat-card class="example-card">
+                <mat-card-content>
+                    <div class="col-lg-12 row">
+                        <div class="col-xs-5">
+                          <p>Player 1</p>
+                        </div>
+                        <div class="col-xs-7">
+                          <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Username" [(ngModel)]="p1Name">
+                          </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 row">
+                      <div class="col-xs-5">
+                        <p>Player 2</p>
+                      </div>
+                      <div class="col-xs-7">
+                        <mat-form-field class="example-full-width">
+                          <input matInput placeholder="Username" [(ngModel)]="p2Name">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button (click)="startMatch()" [disabled]="!validStart()" 
+                    mat-flat-button color="primary">
+                      Start
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+        </div>
+      
+    </div>
+</section>
