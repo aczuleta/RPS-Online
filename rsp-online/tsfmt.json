@@ -1,0 +1,7 @@
+{
+    "indentSize": 4,
+    "tabSize": 4,
+    "indentStyle": 2,
+    "placeOpenBraceOnNewLineForFunctions": false,
+    "placeOpenBraceOnNewLineForControlBlocks": false
+}
