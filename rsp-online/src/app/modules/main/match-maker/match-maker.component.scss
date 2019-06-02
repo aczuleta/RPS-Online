@@ -1,10 +1,41 @@
 $component : ".match-maker";
+$margin-btns: 10px;
 
 #{$component} {
-    &__section{
-        height: 100vh;
+   
+   &__title {
+    color:white;
+    font-size:36px;
+   }
+
+   &__main-btn{
+    border-radius: 15px;
+    margin-top: 20px;
+    height: 40px;
+    font-size: 20px;
+   }
+
+   &__main-btn--enabled {
+      @extend #{$component}__main-btn;
+      color: white;
+   }
+
+   &__main-btn--disabled{
+    @extend #{$component}__main-btn;
+    color: #9e9e9e;
+    background-color: #bdbdbd!important;
+    border: none;
+    cursor: auto;
+   }
+
+   @media screen and (min-width: 720px) {
+    &__margin-btn--right{
+         margin-right: $margin-btns;
     }
-    &__row{
-        height: inherit;
+
+    &__margin-btn--left{
+        margin-left: $margin-btns;
     }
+    
+   }
 }

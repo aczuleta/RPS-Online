@@ -1,40 +1,64 @@
-<section class="match-maker__section">
-    <div class="row match-maker__row middle-xs">
-        <div class="col-xs-12 center-xs">
-            <h2 class="title-color"><b>Enter Player's Names</b></h2>
-        </div>
+<div class="row full-height middle-xs">
+    <div class="col-xs-12 center-xs">
+        <h2 class="match-maker__title"><b>Enter Player's Names</b></h2>
         <div class="col-lg-6 col-lg-offset-3">
             <mat-card class="example-card">
                 <mat-card-content>
                     <div class="col-lg-12 row">
                         <div class="col-xs-5">
-                          <p>Player 1</p>
+                            <p>Player 1</p>
                         </div>
                         <div class="col-xs-7">
-                          <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Username" [(ngModel)]="p1Name">
-                          </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Username" [(ngModel)]="p1Name">
+                            </mat-form-field>
                         </div>
                     </div>
                     <div class="col-lg-12 row">
-                      <div class="col-xs-5">
-                        <p>Player 2</p>
-                      </div>
-                      <div class="col-xs-7">
-                        <mat-form-field class="example-full-width">
-                          <input matInput placeholder="Username" [(ngModel)]="p2Name">
+                        <div class="col-xs-5">
+                            <p>Player 2</p>
+                        </div>
+                        <div class="col-xs-7">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Username" [(ngModel)]="p2Name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 row center-xs">
+                        <h4>Select a ruleset</h4>
+                        <mat-form-field >
+                          <mat-label>Rulesets</mat-label>
+                          <mat-select [(ngModel)]="selectedRuleset">
+                              <mat-option *ngFor="let rl of rulesets" [value]="rl.id">
+                                  {{rl.name}}
+                              </mat-option>
+                          </mat-select>
                         </mat-form-field>
-                      </div>
                     </div>
                 </mat-card-content>
-                <mat-card-actions>
-                    <button (click)="startMatch()" [disabled]="!validStart()" 
-                    mat-flat-button color="primary">
-                      Start
-                  </button>
-                </mat-card-actions>
-              </mat-card>
+            </mat-card>
         </div>
-      
+
+        <div class="row col-xs-12 col-lg-4 col-lg-offset-4">
+            <div class="row col-xs-12 col-lg-6 match-maker__margin-btn--right">
+                <button (click)="startMatch()"  [disabled]="!validStart()" 
+                [ngClass]="{
+                  'match-maker__main-btn--enabled': validStart(),
+                  'match-maker__main-btn--disabled': !validStart()
+                }"
+                class="main-btn full-width">
+                    Start
+                </button>
+            </div>
+            <div class="row col-xs-12 col-lg-6 match-maker__margin-btn--left">
+                <a class="child-anchor full-width" routerLink="./ruleset-maker">
+                    <button class="match-maker__main-btn--enabled main-btn full-width">
+                        Create Ruleset
+                    </button>
+                </a>
+            </div>
+        </div>
     </div>
-</section>
+</div>
+
+

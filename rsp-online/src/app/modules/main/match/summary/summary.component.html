@@ -1,3 +1,17 @@
-<p>
-  summary works!
-</p>
+<h1 class="white-text">Score</h1>
+<div class="row" *ngIf="(rounds$ | async ) as rounds">
+        <div class="col-xs-6">
+            <h1 class="white-text">Round</h1>
+        </div>
+        <div class="col-xs-6">
+            <h1 class="white-text">Winner</h1>
+        </div>
+        <div class="row col-xs-12" *ngFor="let round of rounds">
+            <div class="col-xs-6">
+                <h4 class="white-text">{{round.number}}</h4>
+            </div>
+            <div class="col-xs-6">
+                <h4 class="white-text">{{round.winner.username}}</h4>
+            </div>
+        </div>
+</div>

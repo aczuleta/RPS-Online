@@ -1,7 +1,29 @@
-<p>
-  match works!
-</p>
+<div *ngIf="!completed" class="row full-height middle-xs">
+    
+    <!--Section for the player move-->
+    <div class="col-xs-12 col-lg-6 center-xs row ">
+        <player-move></player-move>
+    </div>
 
-<div class="col-xs-12 center-xs">
-  <h3></h3>
+    <!--Section for the score summary-->
+    <div class="col-xs-12 col-lg-6 center-xs row">
+        <summary></summary>
+    </div>
+</div>
+
+<div *ngIf="completed" class="row full-height middle-xs">
+  <div class="col-xs-12 center-xs">
+      <h1 class="white-text">We have a WINNER!!</h1>
+      <br>
+      <h1 class="white-text">{{winner.username}}  is the new EMPEROR!</h1>
+      <br>
+      <br>
+      <div class="col-xs-4 col-xs-offset-4 row">
+          <a class="child-anchor full-width" routerLink="../match-maker">
+            <button class="match__main-btn main-btn full-width">
+                Play Again
+            </button>
+          </a>
+      </div>
+  </div>
 </div>
