@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LadderService } from '../../../../services/ladder.service';
 
-
-const ELEMENT_DATA: any[] = [
-  {rank: 1, username: 'Hydrogen', wins : 4, losses: 0 },
-];
 
 @Component({
   selector: 'rank-table',
@@ -12,13 +9,14 @@ const ELEMENT_DATA: any[] = [
 })
 export class RankTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['rank', 'player', 'wins', 'losses'];
-  dataSource = ELEMENT_DATA;
+  public displayedColumns: string[] = ['rank', 'player', 'wins'];
+  public dataSource$;
 
-  constructor() { }
+  constructor(private ladderService:LadderService) { }
 
   ngOnInit() {
-    
+    this.dataSource$ = this.ladderService.getLadder();
+    this.dataSource$.subscribe( x => console.log(x));
   }
 
 }

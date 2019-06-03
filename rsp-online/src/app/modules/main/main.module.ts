@@ -13,6 +13,8 @@ import { MatchMakerComponent } from './match-maker/match-maker.component';
 import { RulesetMakerComponent } from './ruleset-maker/ruleset-maker.component';
 import {ShellComponent} from './shell/shell.component';
 
+import {MatchService} from '../../services/match.service';
+
 import {routes} from './main.routing';
 import {matchReducer} from './feature/reducers/match.reducers';
 import {roundsReducer} from './feature/reducers/round.reducers';
@@ -35,7 +37,7 @@ import {MatchEffects} from './feature/main.effects';
       StoreModule.forFeature('round', roundsReducer),
       EffectsModule.forFeature([MatchEffects])
     ],
-    providers: []
+    providers: [MatchService]
   })
 export default class MainModule {
 }

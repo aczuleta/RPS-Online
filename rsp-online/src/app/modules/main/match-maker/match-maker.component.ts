@@ -6,6 +6,7 @@ import {Store} from "@ngrx/store";
 import {AppState} from '../../../reducers';
 import {MatchRequested} from '../feature/main.actions';
 import { RunningScriptOptions } from 'vm';
+import { MatchService } from '../../../services/match.service';
 
 @Component({
   selector: 'match-maker',
@@ -19,32 +20,29 @@ export class MatchMakerComponent implements OnInit {
 
   private p1:Player;
   private p2:Player;
-  private selectedRuleset: Ruleset;
+  private selectedRuleset: number = null;
+  public rulesets$;
 
-  public rulesets:Array<Ruleset> = [
-      new Ruleset(1, "Traditional", null),
-      new Ruleset(2, "Extreme", null),
-      new Ruleset(3, "For the Lulz", null)
-  ];
-
-  constructor(private router:Router, private store:Store<AppState>) {
+  constructor(private router:Router, private store:Store<AppState>, private matchService:MatchService) {
     this.p1Name = "";
     this.p2Name = ""; 
   }
 
+
   ngOnInit() {
+    this.rulesets$ = this.matchService.getRulesets();
   }
 
   validStart(){
     //console.log("este es el ruleset escogido", this.selectedRuleset);
-    let rta = this.p1Name && this.p2Name;
+    let rta = this.p1Name && this.p2Name && this.selectedRuleset;
     return rta;
   }  
 
   startMatch(){
     let p1 = new Player(this.p1Name),
         p2 = new Player(this.p2Name);
-    const match = new Match(p1, p2, [], this.selectedRuleset);
+    const match = new Match(p1, p2, [], new Ruleset(this.selectedRuleset, "", null));
     this.store.dispatch(new MatchRequested({match}));
     this.router.navigate(['./match']);
   }

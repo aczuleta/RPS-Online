@@ -1,7 +1,16 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
+import { match } from 'minimatch';
 
 export const selectMatchState = state => state.match;
 export const selectRoundState = state => state.round;
+
+
+export const getMatchState = createSelector(
+  selectMatchState,
+  matchState => {
+    return matchState
+  }
+);
 
 export const getMatch = createSelector(
   selectMatchState,
@@ -25,6 +34,16 @@ export const getRounds = createSelector(
   stateMatch => {
     return stateMatch.rounds
   }
+);
+
+export const isMatchOver = createSelector(
+  selectMatchState,
+  stateMatch => stateMatch.done
+);
+
+export const getMatchWinner = createSelector(
+  selectMatchState,
+  stateMatch => stateMatch.winner
 );
 
 export const getCurrentPlayer = createSelector(

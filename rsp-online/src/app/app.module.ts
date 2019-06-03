@@ -26,6 +26,17 @@ import {routes} from './app.routing';
 import { reducers, metaReducers } from './reducers';
 import {CustomSerializer} from './shared/utils';
 import { environment } from '../environments/environment';
+import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
+
+export function createApollo(httpLink: HttpLink) {
+  return {
+    link: httpLink.create({ uri: environment.apiUrl}),
+    cache: new InMemoryCache()
+  }
+};
 
 @NgModule({
   declarations: [
@@ -47,7 +58,17 @@ import { environment } from '../environments/environment';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot({stateKey:'router'})
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: createApollo,
+      deps: [HttpLink],
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(apollo: Apollo, httpLink: HttpLink) {
+    
+  }
+}

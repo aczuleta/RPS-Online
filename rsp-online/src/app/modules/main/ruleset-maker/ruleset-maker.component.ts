@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-ruleset-maker',
+  selector: 'ruleset-maker',
   templateUrl: './ruleset-maker.component.html',
   styleUrls: ['./ruleset-maker.component.scss']
 })

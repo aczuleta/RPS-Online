@@ -10,8 +10,10 @@
             <div class="col-xs-6">
                 <h4 class="white-text">{{round.number}}</h4>
             </div>
-            <div class="col-xs-6">
-                <h4 class="white-text">{{round.winner.username}}</h4>
+            <div class="col-xs-6" >
+                <h4 class="white-text" *ngIf="round.winner && round.winner.username" >
+                    {{round.winner?.username}}
+                </h4>
             </div>
         </div>
 </div>

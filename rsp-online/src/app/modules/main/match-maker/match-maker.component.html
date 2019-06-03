@@ -26,39 +26,46 @@
                     </div>
                     <div class="col-xs-12 row center-xs">
                         <h4>Select a ruleset</h4>
-                        <mat-form-field >
-                          <mat-label>Rulesets</mat-label>
-                          <mat-select [(ngModel)]="selectedRuleset">
-                              <mat-option *ngFor="let rl of rulesets" [value]="rl.id">
-                                  {{rl.name}}
-                              </mat-option>
-                          </mat-select>
+                        <mat-form-field>
+                            <mat-label>Rulesets</mat-label>
+                            <mat-select [(ngModel)]="selectedRuleset">
+                                <mat-option value="0">
+                                    Default
+                                </mat-option>
+                                <div *ngIf="(rulesets$ | async) as ruleSets">
+                                    <mat-option *ngFor="let rl of ruleSets.rulesets" [value]="rl.id">
+                                        {{rl.name}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                 </mat-card-content>
             </mat-card>
         </div>
-
         <div class="row col-xs-12 col-lg-4 col-lg-offset-4">
             <div class="row col-xs-12 col-lg-6 match-maker__margin-btn--right">
-                <button (click)="startMatch()"  [disabled]="!validStart()" 
-                [ngClass]="{
+                <button (click)="startMatch()" [disabled]="!validStart()" [ngClass]="{
                   'match-maker__main-btn--enabled': validStart(),
                   'match-maker__main-btn--disabled': !validStart()
-                }"
-                class="main-btn full-width">
+                }" class="main-btn full-width">
                     Start
                 </button>
             </div>
             <div class="row col-xs-12 col-lg-6 match-maker__margin-btn--left">
-                <a class="child-anchor full-width" routerLink="./ruleset-maker">
+                <a class="child-anchor full-width" routerLink="../ruleset-maker">
                     <button class="match-maker__main-btn--enabled main-btn full-width">
                         Create Ruleset
+                    </button>
+                </a>
+            </div>
+            <div class="row col-xs-12 col-lg-6 col-lg-offset-3">
+                <a class="child-anchor full-width" routerLink="/">
+                    <button class="match-maker__main-btn--enabled main-btn full-width">
+                        Home
                     </button>
                 </a>
             </div>
         </div>
     </div>
 </div>
-
-

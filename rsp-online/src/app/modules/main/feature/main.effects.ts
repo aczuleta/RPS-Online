@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Play, Round} from '../../../models/models.barrel';
+import {Play, Round, Player} from '../../../models/models.barrel';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {tap, map, concatMap, mergeMap, mapTo, merge, switchMap, withLatestFrom, filter} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {defer, of, Observable, concat} from 'rxjs';
-import { PlayMade, MainActionTypes, RoundEvaluationRequested, RoundEvaluationMade, NewRoundRequested } from './main.actions';
+import { PlayMade, MainActionTypes, RoundEvaluationRequested, RoundEvaluationMade, NewRoundRequested, MatchCompletionRequested } from './main.actions';
 import { Store, Action, select } from '@ngrx/store';
 import { AppState } from '../../../reducers';
 import { RoundPlayMade } from './main.actions';
-import { getPlays, isRoundDone, getRoundState, getCurrentRound } from './main.selectors';
-
+import { getPlays, isRoundDone, getRoundState, getCurrentRound, getPlayers, getMatch, getMatchState } from './main.selectors';
+import {MatchService} from '../../../services/match.service';
 
 @Injectable()
 export class MatchEffects {
@@ -42,12 +42,13 @@ export class MatchEffects {
           //The player who made the first play wins
           if(play1.move.kills.indexOf(play2.move.name) > -1){
             winner = play1.player;
-          } 
-          //The player who made the second play wins
-          else if (play2.move.kills.indexOf(play1.move.name) > -1){
+          } else if (play2.move.kills.indexOf(play1.move.name) > -1){
+            //The player who made the second play wins
             winner = play2.player;
-          }  
-
+          } else {
+            //Otherwise it is a draw.
+            winner = new Player("Draw");
+          } 
         const round:Round = new Round(roundState.round.number, winner);
         return of(new RoundEvaluationMade({round}));
       }));
@@ -57,12 +58,41 @@ export class MatchEffects {
       ofType<RoundEvaluationMade>(MainActionTypes.RoundEvaluationMade),
       withLatestFrom(this.store.pipe(select(getCurrentRound))),
       switchMap(([action, current])  => {
-        console.log("esto es lo que retorna el current", current);
         const round:Round = new Round(current.number + 1, undefined);
         return of(new NewRoundRequested({round}));
       }));
-    
-  constructor(private actions$: Actions, private router:Router,  private store: Store<AppState>) {}
 
+    @Effect()
+    newRound$ = this.actions$.pipe(
+      ofType<NewRoundRequested>(MainActionTypes.NewRoundRequested),
+      withLatestFrom(this.store.pipe(select(getPlayers))),
+      filter(([action, players]) => {
+        return players.some( player => {
+          return player.matchStatus.every(x => x);
+        })}),
+      switchMap( ([action, players]) => {
+          const winner = this.selectWinner(players);
+          return of(new MatchCompletionRequested({winner}));
+      })
+    );
+
+    @Effect({dispatch:false})
+    matchEnd$ = this.actions$.pipe(
+      ofType<MatchCompletionRequested>(MainActionTypes.MatchCompletionRequested),
+      withLatestFrom(this.store.pipe(select(getMatchState))),
+      tap( ([action, state]) => {
+         this.matchService
+         .sendResult(state.match.p1.username, state.match.p2.username, action.payload.winner.username); 
+      })
+    );
+
+  constructor(private actions$: Actions, private router:Router,  
+              private store: Store<AppState>, private matchService:MatchService) {}
+
+  selectWinner(players:Array<Player>){
+    for(let player of players){
+      if(player.matchStatus.every(x => x)) return player;
+    }
+  }
 
 }

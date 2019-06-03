@@ -4,6 +4,7 @@ import {MainComponent} from './main.component';
 import {MatchComponent} from './match/match.component';
 import {ShellComponent} from './shell/shell.component';
 import {MatchMakerComponent} from './match-maker/match-maker.component';
+import { RulesetMakerComponent } from './ruleset-maker/ruleset-maker.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +22,10 @@ export const routes: Routes = [
             {
                 path: 'match',
                 component: MatchComponent
+            },
+            {
+                path: 'ruleset-maker',
+                component: RulesetMakerComponent
             },
             {
                 path: 'leaderboards',

@@ -3,7 +3,7 @@ import {Player, Move, Match} from '../../../models/models.barrel';
 import {Store, select} from "@ngrx/store";
 import {AppState} from '../../../reducers';
 import { Observable } from 'rxjs';
-import { getMatch, getCurrentPlayer } from '../feature/main.selectors';
+import { getMatch, getCurrentPlayer, isMatchOver, getMatchWinner } from '../feature/main.selectors';
 
 @Component({
   selector: 'match',
@@ -13,56 +13,14 @@ import { getMatch, getCurrentPlayer } from '../feature/main.selectors';
 export class MatchComponent implements OnInit {
   
   private match$:Observable<Match>;
-
-
-  public completed:boolean = false;
-  public player1:Player; 
-  public player2:Player;
-  public currentPlayer:Player; 
-
-  public winner:Player = new Player("AZ");  
-  public moves:Array<Move>;
-  private tempMoves = [
-    {
-      name: "Rock",
-      kills: ["Scissor"],
-      imageRoute: "https://techtest-aczc.s3-us-west-2.amazonaws.com/RPS/hand-rock.svg"
-    }, 
-    {
-      name: "Paper",
-      kills: ["Rock"],
-      imageRoute: "https://techtest-aczc.s3-us-west-2.amazonaws.com/RPS/hand-paper.svg" 
-    }, 
-    {
-      name: "Scissor",
-      kills: ["Paper"],
-      imageRoute: "https://techtest-aczc.s3-us-west-2.amazonaws.com/RPS/hand-scissors.svg"
-    }
-  ];
-
-  public results = [
-    {
-      number: 1,
-      winner: "AZ"
-    },
-    {
-      number: 2,
-      winner: "AZ"
-    },
-    {
-      number: 3,
-      winner: "SM"
-    }
-  ];
-
+  public completed$:Observable<boolean>;
+  public winner$:Observable<Player>;  
  
-
-  constructor(private store:Store<AppState>) { 
-    this.moves = this.tempMoves;
-  }
-
-
+  constructor(private store:Store<AppState>){ }
+  
   ngOnInit() {
+    this.completed$ = this.store.pipe(select(isMatchOver));
+    this.winner$ = this.store.pipe(select(getMatchWinner));
   }
 
  

@@ -1,17 +1,17 @@
 import {Action} from '@ngrx/store';
-import {Match, Move, Play, Round} from '../../../models/models.barrel';
+import {Match, Move, Play, Round, Player} from '../../../models/models.barrel';
 
 
 export enum MainActionTypes {
   MatchRequested = '[Main Page] Match Requested',
   PlayMade = '[Player Move Component] Play Made',
-  MatchEvaluationRequested = '[Play Made Effect] Match Evaluation' ,
+  MatchEvaluationRequested = '[Play Made Effect] Match Evaluation',
+  MatchCompletionRequested = '[New Round Effect] The match is Done',
 
   RoundPlayMade = '[Player Move Component 2] Play Made',
   RoundEvaluationRequested = '[Play Made Effect] Round Evaluation' ,
   RoundEvaluationMade = '[Round Evaluation Effect] Round Evaluated',
   NewRoundRequested = '[Round Made Effect] New Round Incoming'
-
 }
 
 
@@ -50,6 +50,11 @@ export class NewRoundRequested implements Action {
   constructor(public payload: {round:Round}) {}
 }
 
+export class MatchCompletionRequested implements Action {
+  readonly type = MainActionTypes.MatchCompletionRequested;
+  constructor(public payload: {winner:Player}) {}
+}
+
 
 export type MainActions = 
 MatchRequested |
@@ -57,7 +62,8 @@ PlayMade |
 RoundEvaluationMade |
 RoundEvaluationRequested  |
 RoundPlayMade |
-NewRoundRequested;
+NewRoundRequested |
+MatchCompletionRequested ;
 
 
 
