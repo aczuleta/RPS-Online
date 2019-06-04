@@ -13,9 +13,9 @@ fixture `Tests related with the match making`
     await homePageModel.play();
 });
 
-test('We show that you need to select a ruleset and fill both usernames in order to begin the match', async t => {
-    await makeMatchModel.incompleteFields()
-          .expect(makeMatchModel.startBtn.hasClass("match-maker__main-btn--disabled")).eql(true);
+ test('We show that you need to select a ruleset and fill both usernames in order to begin the match', async t => {
+     await makeMatchModel.incompleteFields()
+           .expect(makeMatchModel.startBtn.hasClass("match-maker__main-btn--disabled")).eql(true);
 });
 
 test('We show that once you fill all the fields in the match making screen you can proceed into the next screen', 

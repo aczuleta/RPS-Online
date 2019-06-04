@@ -3,7 +3,7 @@
         <div *ngIf="(winner$ | async) as winner" class="col-xs-12 center-xs">
             <h1 class="white-text">We have a WINNER!!</h1>
             <br>
-            <h1 class="white-text">{{winner.username}}  is the new EMPEROR!</h1>
+            <h1 class="white-text" id="match_winner_title">{{winner.username}}  is the new EMPEROR!</h1>
             <br>
             <br>
             <div class="col-xs-4 col-xs-offset-4 row">

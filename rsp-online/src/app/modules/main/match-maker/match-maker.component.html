@@ -31,6 +31,7 @@
                         <mat-form-field id="ruleset_select_match">
                             <mat-label>Rulesets</mat-label>
                             <mat-select [(ngModel)]="selectedRuleset">
+                                <mat-option></mat-option>
                                 <div *ngIf="(rulesets$ | async) as ruleSets">
                                     <mat-option [attr.data-ruleset]="'ruleset-'+rl.name" 
                                     *ngFor="let rl of ruleSets.rulesets" [value]="rl.id">

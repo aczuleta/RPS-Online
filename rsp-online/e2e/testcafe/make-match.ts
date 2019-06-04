@@ -9,6 +9,7 @@ export default class MakeMatchPageModel {
     private p1Input;
     private p2Input;
     private ruleSelect;
+    private traditionalRuleset;
     private constants = new Constants();
 
     constructor () {
@@ -16,7 +17,8 @@ export default class MakeMatchPageModel {
         this.p1Input = Selector("#player1_input_username");
         this.p2Input = Selector("#player2_input_username");
         this.scoreSummary = Selector("#score_summary");
-        this.ruleSelect = AngularSelector('mat-option');
+        this.ruleSelect = Selector('[class^="mat-select-placeholder ng-tns-c5-4 ng-star-inserte"]');
+        this.traditionalRuleset = Selector('span').withText('Traditional');
     }
     
     typeUsers(){
@@ -39,7 +41,8 @@ export default class MakeMatchPageModel {
                 .typeText(this.p1Input, this.constants.player1)
                 .click(this.startBtn)
                 .typeText(this.p2Input, this.constants.player2)
-                .click(this.ruleSelect.withAttribute('data-ruleset', `ruleset-${this.constants.defaultRuleset}`))
+                .click(this.ruleSelect)
+                .click(this.traditionalRuleset)
                 .click(this.startBtn);
     }
 }
