@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { ServiceWorkerModule } from '@angular/service-worker'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {RouterStateSerializer, StoreRouterConnectingModule} from "@ngrx/router-store";
 import { EffectsModule } from '@ngrx/effects';
@@ -29,6 +30,7 @@ import { environment } from '../environments/environment';
 import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+
 
 
 export function createApollo(httpLink: HttpLink) {
@@ -56,7 +58,8 @@ export function createApollo(httpLink: HttpLink) {
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({stateKey:'router'})
+    StoreRouterConnectingModule.forRoot({stateKey:'router'}),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled:environment.production})
   ],
   providers: [
     {

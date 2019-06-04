@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RulesetService } from '../../../services/ruleset.service';
+import { fade } from '../../../animations/animations.barrel';
 
 @Component({
   selector: 'ruleset-maker',
   templateUrl: './ruleset-maker.component.html',
-  styleUrls: ['./ruleset-maker.component.scss']
+  styleUrls: ['./ruleset-maker.component.scss'],
+  animations: [fade]
 })
 export class RulesetMakerComponent implements OnInit {
 

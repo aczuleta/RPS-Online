@@ -7,7 +7,7 @@ import {Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import gql from 'graphql-tag';
 import {createResult} from './mutations/mutations';
-import {getRulesets, getRules} from './queries/queries';
+import {getRulesets, getRules, playerSummaries} from './queries/queries';
 
 
 @Injectable({
@@ -23,7 +23,10 @@ export class MatchService {
                 player1,
                 player2,
                 winner
-            }
+            },
+            refetchQueries:  [{
+                query: playerSummaries
+            }]
         }).subscribe(x => {
             console.log(x)
         }, error => {

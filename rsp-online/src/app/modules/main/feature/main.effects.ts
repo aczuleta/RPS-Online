@@ -11,6 +11,26 @@ import { RoundPlayMade } from './main.actions';
 import { getPlays, isRoundDone, getRoundState, getCurrentRound, getPlayers, getMatch, getMatchState } from './main.selectors';
 import {MatchService} from '../../../services/match.service';
 
+export function selectWinner(players:Array<Player>){
+  for(let player of players){
+    if(player.matchStatus.every(x => x)) return player;
+  }
+  return null;
+}
+
+export function selectRoundWinner(play1:Play, play2:Play){
+  //The player who made the first play wins
+  if(play1.move.kills.indexOf(play2.move.name) > -1){
+    return play1.player;
+  } else if (play2.move.kills.indexOf(play1.move.name) > -1){
+    //The player who made the second play wins
+    return play2.player;
+  } else {
+    //Otherwise it is a draw.
+    return new Player("Draw");
+  } 
+}
+
 @Injectable()
 export class MatchEffects {
 
@@ -53,17 +73,9 @@ export class MatchEffects {
       switchMap( ([action, roundState]) => {
           let play1:Play = roundState.plays[0],
               play2:Play = roundState.plays[1];
-          let winner = null;
-          //The player who made the first play wins
-          if(play1.move.kills.indexOf(play2.move.name) > -1){
-            winner = play1.player;
-          } else if (play2.move.kills.indexOf(play1.move.name) > -1){
-            //The player who made the second play wins
-            winner = play2.player;
-          } else {
-            //Otherwise it is a draw.
-            winner = new Player("Draw");
-          } 
+
+          let winner = selectRoundWinner(play1, play2);
+          
         const round:Round = new Round(roundState.round.number, winner);
         return of(new RoundEvaluationMade({round}));
       }));
@@ -86,7 +98,7 @@ export class MatchEffects {
           return player.matchStatus.every(x => x);
         })}),
       switchMap( ([action, players]) => {
-          const winner = this.selectWinner(players);
+          const winner = selectWinner(players);
           return of(new MatchCompletionRequested({winner}));
       })
     );
@@ -104,10 +116,6 @@ export class MatchEffects {
   constructor(private actions$: Actions, private router:Router,  
               private store: Store<AppState>, private matchService:MatchService) {}
 
-  selectWinner(players:Array<Player>){
-    for(let player of players){
-      if(player.matchStatus.every(x => x)) return player;
-    }
-  }
+ 
 
 }

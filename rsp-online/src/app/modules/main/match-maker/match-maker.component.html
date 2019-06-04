@@ -1,6 +1,6 @@
 <div class="row full-height middle-xs">
     <div class="col-xs-12 center-xs">
-        <h2 class="match-maker__title" id="player_input_title" ><b>Enter Player's Names</b></h2>
+        <h2 class="match-maker__title" id="match_maker_title" ><b>Enter Player's Names</b></h2>
         <div class="col-lg-6 col-lg-offset-3">
             <mat-card class="example-card">
                 <mat-card-content>
@@ -10,7 +10,8 @@
                         </div>
                         <div class="col-xs-7">
                             <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Username" [(ngModel)]="p1Name">
+                                <input id="player1_input_username" 
+                                matInput placeholder="Username" [(ngModel)]="p1Name">
                             </mat-form-field>
                         </div>
                     </div>
@@ -20,17 +21,19 @@
                         </div>
                         <div class="col-xs-7">
                             <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Username" [(ngModel)]="p2Name">
+                                <input  id="player2_input_username" 
+                                matInput placeholder="Username" [(ngModel)]="p2Name">
                             </mat-form-field>
                         </div>
                     </div>
                     <div class="col-xs-12 row center-xs">
                         <h4>Select a ruleset</h4>
-                        <mat-form-field>
+                        <mat-form-field id="ruleset_select_match">
                             <mat-label>Rulesets</mat-label>
                             <mat-select [(ngModel)]="selectedRuleset">
                                 <div *ngIf="(rulesets$ | async) as ruleSets">
-                                    <mat-option *ngFor="let rl of ruleSets.rulesets" [value]="rl.id">
+                                    <mat-option [attr.data-ruleset]="'ruleset-'+rl.name" 
+                                    *ngFor="let rl of ruleSets.rulesets" [value]="rl.id">
                                         {{rl.name}}
                                     </mat-option>
                                 </div>
@@ -42,7 +45,7 @@
         </div>
         <div class="row col-xs-12 col-lg-4 col-lg-offset-4">
             <div class="row col-xs-12 col-lg-6 match-maker__margin-btn--right">
-                <button (click)="startMatch()" [disabled]="!validStart()" [ngClass]="{
+                <button id="start_match_btn" (click)="startMatch()" [disabled]="!validStart()" [ngClass]="{
                   'match-maker__main-btn--enabled': validStart(),
                   'match-maker__main-btn--disabled': !validStart()
                 }" class="main-btn full-width">
