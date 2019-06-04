@@ -6,8 +6,8 @@ import { Apollo } from 'apollo-angular';
 import {Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import gql from 'graphql-tag';
-import {createMove, createRuleset} from './mutations/mutations';
-import {getMoves} from './queries/queries';
+import {createMove, editMove, createRuleset} from './mutations/mutations';
+import {getMoves, getRulesets} from './queries/queries';
 
 
 @Injectable({
@@ -25,10 +25,38 @@ export class RulesetService {
                 kills
             }
         }).subscribe(x => {
-            console.log(x)
+            alert("Move created succesfully");
+            location.reload();
         }, error => {
             console.log("An error ocurred: ", error);
         })
+    }
+
+    public editMove(id:number, name:string, imageRoute:string, kills:Array<number>) {
+        return this.apollo.mutate({
+            mutation: editMove,
+            variables: {
+                id,
+                name,
+                imageRoute,
+                kills
+            }
+        }).subscribe(x => {
+            alert("Move edited successfully");
+            location.reload();
+        }, error => {
+            console.log("An error ocurred: ", error);
+        })
+    }
+
+    public getRulesets(){
+        return this.apollo.watchQuery<any>({
+            query: getRulesets
+        })
+        .valueChanges
+        .pipe(
+            map(response => response.data)
+        );
     }
 
     public createRuleset(name:string, moves:Array<number>){
@@ -39,7 +67,8 @@ export class RulesetService {
                 moves
             }
         }).subscribe(x => {
-            console.log(x)
+            alert("Ruleset created successfully");
+            location.reload();
         }, error => {
             console.log("An error ocurred: ", error);
         })
@@ -51,8 +80,7 @@ export class RulesetService {
         })
         .valueChanges
         .pipe(
-            map(response => response.data),
-            tap( x => console.log("esta es la data", x))
+            map(response => response.data)
         );
     }
 }

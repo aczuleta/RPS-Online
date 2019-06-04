@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Play, Round, Player} from '../../../models/models.barrel';
+import {Play, Round, Player, Ruleset, Move} from '../../../models/models.barrel';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {tap, map, concatMap, mergeMap, mapTo, merge, switchMap, withLatestFrom, filter} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {defer, of, Observable, concat} from 'rxjs';
-import { PlayMade, MainActionTypes, RoundEvaluationRequested, RoundEvaluationMade, NewRoundRequested, MatchCompletionRequested } from './main.actions';
+import { PlayMade, MainActionTypes, RoundEvaluationRequested, RoundEvaluationMade, NewRoundRequested, MatchCompletionRequested, MatchRequested, RulesetLoaded } from './main.actions';
 import { Store, Action, select } from '@ngrx/store';
 import { AppState } from '../../../reducers';
 import { RoundPlayMade } from './main.actions';
@@ -13,6 +13,21 @@ import {MatchService} from '../../../services/match.service';
 
 @Injectable()
 export class MatchEffects {
+
+  @Effect()
+    matchStart$ = this.actions$.pipe(
+      ofType<MatchRequested>(MainActionTypes.MatchRequested),
+      mergeMap( action => {
+         return this.matchService.getRules(+action.payload.match.ruleset.id)
+      }),
+      map( rl => {
+        let moves:Array<Move> = rl.moves.map(move => {
+            return new Move(move.name, [move.kills[0].name], move.imageRoute);
+        });
+        let ruleset = new Ruleset(rl.idRuleset, rl.rulesetName, moves);
+        return new RulesetLoaded({ruleset});
+      })
+    );
 
   @Effect()
   makeRoundPlay$ = this.actions$.pipe(

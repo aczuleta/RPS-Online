@@ -15,7 +15,8 @@ export const getRulesets = gql `query{
 export const getMoves = gql `query{
                                 moves{
                                     id,
-                                    name
+                                    name,
+                                    imageRoute
                                 }
                             }`;
 export const getRules = gql `query rules($ruleset:ID!){

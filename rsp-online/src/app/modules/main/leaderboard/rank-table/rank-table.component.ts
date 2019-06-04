@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LadderService } from '../../../../services/ladder.service';
+import { fade } from '../../../../animations/animations.barrel';
 
 
 @Component({
   selector: 'rank-table',
   templateUrl: './rank-table.component.html',
-  styleUrls: ['./rank-table.component.scss']
+  styleUrls: ['./rank-table.component.scss'],
+  animations: [fade]
 })
 export class RankTableComponent implements OnInit {
 
@@ -16,7 +18,7 @@ export class RankTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource$ = this.ladderService.getLadder();
-    this.dataSource$.subscribe( x => console.log(x));
   }
+
 
 }

@@ -5,6 +5,7 @@ import {MatchComponent} from './match/match.component';
 import {ShellComponent} from './shell/shell.component';
 import {MatchMakerComponent} from './match-maker/match-maker.component';
 import { RulesetMakerComponent } from './ruleset-maker/ruleset-maker.component';
+import {CanMatch} from '../../guards/match.guard';
 
 export const routes: Routes = [
     {
@@ -21,7 +22,8 @@ export const routes: Routes = [
             },
             {
                 path: 'match',
-                component: MatchComponent
+                component: MatchComponent,
+                canActivate: [CanMatch]
             },
             {
                 path: 'ruleset-maker',

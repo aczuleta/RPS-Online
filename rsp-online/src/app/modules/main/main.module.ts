@@ -19,6 +19,7 @@ import {routes} from './main.routing';
 import {matchReducer} from './feature/reducers/match.reducers';
 import {roundsReducer} from './feature/reducers/round.reducers';
 import {MatchEffects} from './feature/main.effects';
+import {CanMatch} from '../../guards/match.guard';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import {MatchEffects} from './feature/main.effects';
       StoreModule.forFeature('round', roundsReducer),
       EffectsModule.forFeature([MatchEffects])
     ],
-    providers: [MatchService]
+    providers: [MatchService, CanMatch]
   })
 export default class MainModule {
 }

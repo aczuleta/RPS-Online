@@ -1,4 +1,4 @@
-import {Match, Play, Player, Round} from '../../../../models/models.barrel';
+import {Match, Play, Player, Round, Ruleset} from '../../../../models/models.barrel';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {MainActions, MainActionTypes} from '../main.actions';
 import { match } from 'minimatch';
@@ -26,7 +26,6 @@ export const initialMatchState: MatchState = {
 export function matchReducer(state = initialMatchState , action: MainActions): MatchState {
   switch(action.type) {
     case MainActionTypes.MatchRequested:
-     console.log("maldita sea, despacha el request");
       return {
           started: true,
           match: action.payload.match,
@@ -35,6 +34,17 @@ export function matchReducer(state = initialMatchState , action: MainActions): M
           winner: null,
           done: false
         };
+
+    case MainActionTypes.RulesetLoaded:
+        let loadedMatch = new Match(state.match.p1, state.match.p2, state.match.rounds, action.payload.ruleset);
+        return {
+            started: true,
+            match: loadedMatch,
+            currentPlayer: state.currentPlayer,
+            rounds: state.rounds,
+            winner: null,
+            done: false
+          };
         
     case MainActionTypes.PlayMade: 
        const potentialCurrent = action.payload.play.player;
@@ -89,7 +99,6 @@ export function matchReducer(state = initialMatchState , action: MainActions): M
       };
 
     case MainActionTypes.MatchCompletionRequested:
-        console.log("vamos a terminar la partida con esta acción", action);
         return {
             started: true,
             match: state.match,

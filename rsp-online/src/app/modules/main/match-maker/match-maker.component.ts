@@ -7,11 +7,14 @@ import {AppState} from '../../../reducers';
 import {MatchRequested} from '../feature/main.actions';
 import { RunningScriptOptions } from 'vm';
 import { MatchService } from '../../../services/match.service';
+import { RulesetService } from '../../../services/ruleset.service';
+import { fade } from '../../../animations/animations.barrel';
 
 @Component({
   selector: 'match-maker',
   templateUrl: './match-maker.component.html',
-  styleUrls: ['./match-maker.component.scss']
+  styleUrls: ['./match-maker.component.scss'],
+  animations: [fade]
 })
 export class MatchMakerComponent implements OnInit {
 
@@ -23,18 +26,18 @@ export class MatchMakerComponent implements OnInit {
   private selectedRuleset: number = null;
   public rulesets$;
 
-  constructor(private router:Router, private store:Store<AppState>, private matchService:MatchService) {
+  constructor(private router:Router, private store:Store<AppState>, 
+              private ruleService:RulesetService) {
     this.p1Name = "";
     this.p2Name = ""; 
   }
 
 
   ngOnInit() {
-    this.rulesets$ = this.matchService.getRulesets();
+    this.rulesets$ = this.ruleService.getRulesets();
   }
 
   validStart(){
-    //console.log("este es el ruleset escogido", this.selectedRuleset);
     let rta = this.p1Name && this.p2Name && this.selectedRuleset;
     return rta;
   }  

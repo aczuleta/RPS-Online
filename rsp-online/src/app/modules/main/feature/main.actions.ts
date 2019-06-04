@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Match, Move, Play, Round, Player} from '../../../models/models.barrel';
+import {Match, Move, Play, Round, Player, Ruleset} from '../../../models/models.barrel';
 
 
 export enum MainActionTypes {
@@ -7,6 +7,8 @@ export enum MainActionTypes {
   PlayMade = '[Player Move Component] Play Made',
   MatchEvaluationRequested = '[Play Made Effect] Match Evaluation',
   MatchCompletionRequested = '[New Round Effect] The match is Done',
+
+  RulesetLoaded = '[New Match Effect] The Ruleset is loaded',
 
   RoundPlayMade = '[Player Move Component 2] Play Made',
   RoundEvaluationRequested = '[Play Made Effect] Round Evaluation' ,
@@ -55,6 +57,11 @@ export class MatchCompletionRequested implements Action {
   constructor(public payload: {winner:Player}) {}
 }
 
+export class RulesetLoaded implements Action {
+  readonly type = MainActionTypes.RulesetLoaded
+  constructor(public payload: {ruleset:Ruleset}) {}
+}
+
 
 export type MainActions = 
 MatchRequested |
@@ -63,7 +70,8 @@ RoundEvaluationMade |
 RoundEvaluationRequested  |
 RoundPlayMade |
 NewRoundRequested |
-MatchCompletionRequested ;
+MatchCompletionRequested |
+RulesetLoaded;
 
 
 

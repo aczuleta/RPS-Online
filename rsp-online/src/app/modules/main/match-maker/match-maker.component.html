@@ -1,6 +1,6 @@
 <div class="row full-height middle-xs">
     <div class="col-xs-12 center-xs">
-        <h2 class="match-maker__title"><b>Enter Player's Names</b></h2>
+        <h2 class="match-maker__title" id="player_input_title" ><b>Enter Player's Names</b></h2>
         <div class="col-lg-6 col-lg-offset-3">
             <mat-card class="example-card">
                 <mat-card-content>
@@ -29,9 +29,6 @@
                         <mat-form-field>
                             <mat-label>Rulesets</mat-label>
                             <mat-select [(ngModel)]="selectedRuleset">
-                                <mat-option value="0">
-                                    Default
-                                </mat-option>
                                 <div *ngIf="(rulesets$ | async) as ruleSets">
                                     <mat-option *ngFor="let rl of ruleSets.rulesets" [value]="rl.id">
                                         {{rl.name}}

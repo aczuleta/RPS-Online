@@ -1,5 +1,13 @@
 
 <div class="row full-height middle-xs">
+  <div class="col-xs-12 center-xs row" *ngIf="!(dataSource$ | async)">
+      <mat-progress-spinner
+      class="example-margin"
+      color="primary"
+      mode="indeterminate">
+     </mat-progress-spinner>
+  </div>
+  
   <div class="col-lg-6 col-lg-offset-3 col-xs-12 center-xs" *ngIf="(dataSource$ | async) as dataSource">
       <div class="row col-xs-12 col-lg-6 col-lg-offset-3">
           <a class="child-anchor full-width" routerLink="/">

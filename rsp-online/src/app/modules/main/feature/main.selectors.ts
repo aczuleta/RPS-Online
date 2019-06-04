@@ -12,11 +12,33 @@ export const getMatchState = createSelector(
   }
 );
 
+
 export const getMatch = createSelector(
   selectMatchState,
   matchState => {
       return matchState.match;
   } 
+);
+
+export const isMatchStarted = createSelector(
+  selectMatchState,
+  matchState => {
+    return matchState.started;
+  }
+);
+
+export const getRuleset = createSelector(
+   getMatch,
+   match => {
+     return match.ruleset
+   }
+);
+
+export const getMoves = createSelector(
+  getMatch,
+  match => {
+    return match.ruleset.moves
+  }
 );
 
 export const getPlayers = createSelector(

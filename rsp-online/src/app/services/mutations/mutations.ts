@@ -10,6 +10,11 @@ export const createMove = gql `
         createMove(name: $name, imageRoute: $imageRoute, kills: $kills)
     }`;
 
+export const editMove = gql `
+    mutation editMove($id:ID!, $name:String!, $imageRoute:String!, $kills: [ID]!){
+        editMove(id: $id, name: $name, imageRoute: $imageRoute, kills: $kills)
+    }`;
+
 export const createRuleset = gql `
     mutation createRuleset($name:String!, $moves:[ID]!){
         createRuleset(name: $name, moves: $moves)

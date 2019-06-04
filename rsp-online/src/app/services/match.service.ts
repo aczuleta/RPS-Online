@@ -33,23 +33,16 @@ export class MatchService {
     
     public getRules(ruleset:number){
         return this.apollo.watchQuery<any>({
-            query: getRules
+            query: getRules,
+            variables: {
+                ruleset
+            }
         })
         .valueChanges
         .pipe(
-            map(response => response.data),
-            tap( x => console.log("esta es la data", x))
+            map(response => response.data.rules)
         );
     }
 
-    public getRulesets(){
-        return this.apollo.watchQuery<any>({
-            query: getRulesets
-        })
-        .valueChanges
-        .pipe(
-            map(response => response.data),
-            tap( x => console.log("esta es la data", x))
-        );
-    }
+    
 }

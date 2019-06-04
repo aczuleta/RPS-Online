@@ -3,6 +3,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatCardModule} from '@angular/material/card';
@@ -17,13 +18,13 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
         MatFormFieldModule, MatInputModule, MatIconModule, 
         MatProgressSpinnerModule, MatButtonModule, MatCardModule,
         MatTableModule, FormsModule, MatSelectModule,
-        HttpClientModule, ApolloModule, HttpLinkModule
+        HttpClientModule, ApolloModule, HttpLinkModule, MatCheckboxModule
   ],
   exports: [
         MatFormFieldModule, MatInputModule, MatIconModule, 
         MatProgressSpinnerModule, MatButtonModule,  MatCardModule,
         FormsModule, MatTableModule, MatSelectModule,
-        HttpClientModule, ApolloModule, HttpLinkModule
+        HttpClientModule, ApolloModule, HttpLinkModule, MatCheckboxModule
   ]
 })
 export class SharedModule { }
