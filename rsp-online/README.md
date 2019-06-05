@@ -24,7 +24,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 Before you try to execute the e2e tests you need to install testcafe, you can do so by running the command `npm i -g testcafe`
 
-Run `testcafe chrome [path to file]` (example: `testcafe chrome e2e/testcafe/full-match.spec.js`) to execute the end-to-end tests via [Testcafe] (https://devexpress.github.io/testcafe/).
+Run `testcafe chrome [path to file]` (example: `testcafe chrome e2e/testcafe/full-match.spec.js`) to execute the end-to-end tests via [Testcafe](https://devexpress.github.io/testcafe/).
 
 ## Further help
 
